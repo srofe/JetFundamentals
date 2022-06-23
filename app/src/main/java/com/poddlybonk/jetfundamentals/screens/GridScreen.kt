@@ -1,11 +1,14 @@
 package com.poddlybonk.jetfundamentals.screens
 
 import android.graphics.drawable.Icon
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -38,9 +41,18 @@ private val items = listOf(
 
 data class IconResource(val imageVector: ImageVector, val isVisible: Boolean)
 
+@ExperimentalFoundationApi
 @Composable
 fun GridScreen() {
-    GridView(columnCount = 3)
+    LazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
+        cells = GridCells.Fixed(3),
+        content = {
+            items(items) { item ->
+                GridIcon(IconResource(item, true))
+            }
+        }
+    )
 
     BackButtonHandler {
         JetFundamentalsRouter.navigateTo(Screen.Navigation)
@@ -95,5 +107,20 @@ fun RowScope.GridIcon(iconResource: IconResource) {
         modifier = Modifier
             .size(80.dp, 80.dp)
             .weight(1f)
+    )
+}
+
+@Composable
+fun GridIcon(iconResource: IconResource) {
+    val color = if (iconResource.isVisible)
+        colorResource(R.color.colorPrimary)
+    else Color.Transparent
+
+    Icon(
+        imageVector = iconResource.imageVector,
+        tint = color,
+        contentDescription = stringResource(R.string.grid_icon),
+        modifier = Modifier
+            .size(80.dp, 80.dp)
     )
 }
