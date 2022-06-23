@@ -1,7 +1,9 @@
 package com.poddlybonk.jetfundamentals.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
@@ -25,7 +27,8 @@ fun NavigationScreen() {
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             NavigationButton(stringResource(id = R.string.text), Screen.Text)
             NavigationButton(stringResource(id = R.string.text_field), Screen.TextField)
@@ -37,6 +40,9 @@ fun NavigationScreen() {
             NavigationButton(stringResource(id = R.string.box), Screen.Box)
             NavigationButton(stringResource(id = R.string.surface), Screen.Surface)
             NavigationButton(stringResource(id = R.string.scaffold), Screen.Scaffold)
+            NavigationButton(stringResource(id = R.string.scrolling), Screen.Scrolling)
+            NavigationButton(stringResource(id = R.string.list), Screen.List)
+            NavigationButton(stringResource(id = R.string.grid), Screen.Grid)
         }
     }
 }
